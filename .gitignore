@@ -7,3 +7,4 @@ node_modules/
 out/
 service-worker.*
 .npmrc
+.DS_Store
