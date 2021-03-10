@@ -1,9 +1,15 @@
+const slug = s => s.toLowerCase()
+  .replace(/[^\w\s-]/g, '')
+  .replace(/[\s_-]+/g, '-')
+  .replace(/^-+|-+$/g, '')
+
 const env = process.env.VERCEL_ENV
 const git = {
   repo: process.env.VERCEL_GIT_REPO_SLUG + '-api',
-  branch: process.env.VERCEL_GIT_COMMIT_REF,
+  branch: slug(process.env.VERCEL_GIT_COMMIT_REF),
   owner: process.env.VERCEL_GIT_REPO_OWNER,
 }
+
 
 const apiUrl = (() => {
   switch (env) {
