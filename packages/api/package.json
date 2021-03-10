@@ -1,14 +1,14 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index",
   "scripts": {
-    "start": "node index",
-    "dev": "node index"
+    "start": "next start",
+    "build": "next build",
+    "dev": "next dev"
   },
   "dependencies": {
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "next": "^10.0.8",
     "shared": "^1.0.0"
   }
 }
