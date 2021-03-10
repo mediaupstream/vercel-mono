@@ -1,14 +1,11 @@
 import { Button, Box } from 'shared'
 import fetch from 'node-fetch'
-const {
-  API_URL = 'http://localhost:3001/api',
-  VERCEL_URL,
-} = process.env
 
-console.log(API_URL, VERCEL_URL)
+const API_URL = process.env.apiUrl || 'http://localhost:3001/api'
+
+console.log('API_URL:', API_URL)
 
 export default function Home({ data }) {
-  console.log(API_URL, VERCEL_URL)
   return (
     <div style={{ padding: "2rem"}}>
       <Button>Shared Button</Button>
@@ -16,7 +13,7 @@ export default function Home({ data }) {
       <Button>Shared Button</Button>
       <Box>Shared Box</Box>
       <Box>
-        Data from API:
+        <h2 style={{fontFamily: 'monospace'}}>Data from {API_URL}</h2>
         <code><pre>
         {JSON.stringify(data, null, 2)}
         </pre></code>
