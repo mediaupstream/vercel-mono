@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "lerna run dev --parallel",
+    "build": "lerna run build"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "next-transpile-modules": "^6.3.0",
+    "next-compose-plugins": "^2.2.1"
+  }
+}

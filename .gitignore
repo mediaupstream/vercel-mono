@@ -1,0 +1,9 @@
+.env
+.next
+.out
+.vercel
+*.log
+node_modules/
+out/
+service-worker.*
+.npmrc
