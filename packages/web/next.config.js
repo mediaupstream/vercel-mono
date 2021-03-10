@@ -1,7 +1,9 @@
 const slug = s => s.toLowerCase()
-  .replace(/[^\w\s-]/g, '')
-  .replace(/[\s_-]+/g, '-')
-  .replace(/^-+|-+$/g, '')
+.replace(/\//g, '-')
+.replace(/\\/g, '-')
+.replace(/[^\w\s-]/g, '')
+.replace(/[\s_-]+/g, '-')
+.replace(/^-+|-+$/g, '')
 
 const env = process.env.VERCEL_ENV
 const git = {
