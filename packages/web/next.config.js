@@ -1,8 +1,8 @@
 const env = process.env.VERCEL_ENV
 const git = {
-  owner: process.env.VERCEL_GIT_REPO_OWNER,
+  repo: process.env.VERCEL_GIT_REPO_SLUG + '-api',
   branch: process.env.VERCEL_GIT_COMMIT_REF,
-  repo: process.env.VERCEL_GIT_REPO_SLUG
+  owner: process.env.VERCEL_GIT_REPO_OWNER,
 }
 
 const apiUrl = (() => {
