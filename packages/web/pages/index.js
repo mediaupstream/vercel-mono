@@ -1,7 +1,7 @@
 import { Button, Box } from 'shared'
 import fetch from 'node-fetch'
 const {
-  API_URL = 'http://localhost:3001',
+  API_URL = 'http://localhost:3001/api',
   VERCEL_URL,
 } = process.env
 
