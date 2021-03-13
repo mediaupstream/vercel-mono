@@ -1,6 +1,7 @@
 const { promisify } = require('util')
 const exec = promisify(require('child_process').exec)
 
+const DEBUG = false
 const ORG_ID = 's0u8XySVq3EH7yrs1IRNb3Hj'
 const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 
@@ -12,31 +13,43 @@ const projects = {
 const cmd = id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${id} npx vercel --token ${TOKEN} -c -C`
 const withEnv = n => Object.entries(n).map(([k,v]) => `-b ${k}="${v}" -e ${k}="${v}"`).join(' ')
 
+const log = (...msg) => DEBUG ? console.log(...msg) : null
+
 // -- DEPLOY STUFF
 
 async function deployApi() {
-  console.log('[ Deploying API ]')
+  log('[ Deploying API ]')
   const { stdout: res } = await exec(cmd(projects.api))
   const url = res.toString().trim()
-  console.log('preview:', url, '\n')
+  log('preview:', url, '\n')
   return url
 }
 
 async function deployWeb(apiUrl) {
-  console.log('[ Deploying WEB ]')
+  log('[ Deploying WEB ]')
   const env = {
     API_URL: apiUrl
   }
   const { stdout: res } = await exec(`${cmd(projects.web)} ${withEnv(env)}`)
   const url = res.toString().trim()
-  console.log('preview:', url, '\n')
+  log('preview:', url, '\n')
   return url
 }
 
 async function deploy() {
   try {
     const apiUrl = await deployApi()
-    await deployWeb(apiUrl)
+    const webUrl = await deployWeb(apiUrl)
+    console.log({
+      apiUrl,
+      webUrl,
+      message: `
+:tada: **Preview Apps Deployed** :tada:
+
+api: ${apiUrl}
+web: ${webUrl}
+`
+    })
   } catch (err) {
     console.log('[ FAIL ]', err)
     process.exit(1)
