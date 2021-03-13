@@ -43,8 +43,8 @@ async function deploy() {
     const msg = [
       ':tada: **Previews Deployed** :tada:',
       '<ul>',
-      `<li>**API**  ${apiUrl}</li>`,
-      `<li>**WEB**  ${webUrl}</li>`,
+      `<li>**API** - ${apiUrl}</li>`,
+      `<li>**WEB** - ${webUrl}</li>`,
       '</ul>'
     ]
     console.log(msg.join(''))
