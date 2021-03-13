@@ -44,7 +44,7 @@ async function deploy() {
       apiUrl,
       webUrl,
       message: `
-:tada: **Preview Apps Deployed** :tada:
+:mag: **Preview Apps Deployed** :mag:
 
 api: ${apiUrl}
 web: ${webUrl}
