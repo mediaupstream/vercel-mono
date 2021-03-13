@@ -42,7 +42,7 @@ async function deploy() {
     // const webUrl = await deployWeb(apiUrl)
     const apiUrl = 'api-url-here'
     const webUrl = 'web-url-here'
-    console.log(':tada: **Preview Apps Deployed** :tada: \n\n- api: ${apiUrl} \n- web: ${webUrl}')
+    console.log(':tada: **Preview Apps Deployed** :tada: \n\n - **api**: ${apiUrl} \n - **web**: ${webUrl}')
   } catch (err) {
     console.log('[ FAIL ]', err)
     process.exit(1)
