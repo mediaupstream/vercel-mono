@@ -20,9 +20,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            console.log(steps, context.issue, context.repo)
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: context.steps.deploy.message
+              body: 'nope'
             })
