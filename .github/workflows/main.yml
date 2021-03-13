@@ -5,12 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy
-        id: deploy-result
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: '14'
-          script: node deploy
+      - name: Deploy
+        id: deploy-result
+        run: node deploy
       - name: View context attributes
         uses: actions/github-script@v3
         with:
@@ -20,10 +20,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context.issue, context.repo)
+            console.log(steps)
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '???'
+              body: steps.deploy-result.outputs
             })
