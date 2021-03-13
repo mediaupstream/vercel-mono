@@ -39,7 +39,8 @@ async function deployWeb(apiUrl) {
 async function deploy() {
   try {
     const apiUrl = await deployApi()
-    const webUrl = await deployWeb(apiUrl)
+    // const webUrl = await deployWeb(apiUrl)
+    const webUrl = 'blah'
     console.log({
       apiUrl,
       webUrl,
