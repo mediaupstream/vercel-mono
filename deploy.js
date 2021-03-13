@@ -38,11 +38,16 @@ async function deployWeb(apiUrl) {
 
 async function deploy() {
   try {
-    // const apiUrl = await deployApi()
-    // const webUrl = await deployWeb(apiUrl)
-    const apiUrl = 'api-url-here'
-    const webUrl = 'web-url-here'
-    console.log(':tada: **Preview Apps Deployed** :tada: <br><br> - **api**: ${apiUrl} <br> - **web**: ${webUrl}')
+    const apiUrl = await deployApi()
+    const webUrl = await deployWeb(apiUrl)
+    const msg = [
+      ':tada: **Previews Deployed** :tada:',
+      '<ul>',
+      `<li>**API**  ${apiUrl}</li>`,
+      `<li>**WEB**  ${webUrl}</li>`,
+      '</ul>'
+    ]
+    console.log(msg.join(''))
   } catch (err) {
     console.log('[ FAIL ]', err)
     process.exit(1)
