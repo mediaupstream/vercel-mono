@@ -10,20 +10,15 @@ jobs:
           node-version: '14'
       - name: Deploy
         id: deploy-result
-        run: node deploy
-      - name: View context attributes
-        uses: actions/github-script@v3
-        with:
-          script: console.log(context)
+        run: echo "::set-output name=msg::${node deploy}"
       - name: Comment on PR
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(steps)
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: steps.deploy-result.outputs
+              body: "${{ steps.deploy-result.outputs.msg }}"
             })
