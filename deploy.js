@@ -9,7 +9,7 @@ const projects = {
   web: 'prj_1ov6CWEJ2FOEAdMmJAvrk4QQjHWx',
 }
 
-const cmd = id => `VERCEL_TOKEN=${TOKEN} VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${id} npx vercel -c -C`
+const cmd = id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${id} npx vercel --token ${TOKEN} -c -C`
 const withEnv = n => Object.entries(n).map(([k,v]) => `-b ${k}="${v}" -e ${k}="${v}"`).join(' ')
 
 // -- DEPLOY STUFF
@@ -39,6 +39,7 @@ async function deploy() {
     await deployWeb(apiUrl)
   } catch (err) {
     console.log('[ FAIL ]', err)
+    process.exit(1)
   }
 }
 
