@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy
-        id: deploy
+        id: deploy-result
         uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -20,10 +20,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(steps, context.issue, context.repo)
+            console.log(context.issue, context.repo)
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'nope'
+              body: '???'
             })
