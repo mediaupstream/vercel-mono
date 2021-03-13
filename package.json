@@ -1,16 +1,37 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
+    "dev:api": "lerna run --scope api dev",
+    "dev:shared": "lerna run --scope shared dev",
+    "dev:web": "lerna run --scope web dev",
     "dev": "lerna run dev --parallel",
-    "build": "lerna run build"
+
+    "start:api": "lerna run --scope api start",
+    "start:shared": "lerna run --scope shared start",
+    "start:web": "lerna run --scope web start",
+    "start": "lerna run start --parallel",
+
+    "build:api": "next build packages/api",
+    "build:shared": "lerna run --scope shared build",
+    "build:web": "lerna run --scope web build",
+    "build": "lerna run build",
+
+    "deploy:api": "VERCEL_TOKEN=VpcyGrjb0uOvrXsxGiyhxWIe VERCEL_ORG_ID=s0u8XySVq3EH7yrs1IRNb3Hj VERCEL_PROJECT_ID=prj_LQmlubkLgUq9jNtGmAiS6Qp0Llyv npx vercel",
+    "deploy:shared": "lerna run --scope shared deploy",
+    "deploy:web": "lerna run --scope web deploy",
+    "deploy": "lerna run deploy"
   },
   "devDependencies": {
+    "@vercel/client": "^9.0.8",
     "lerna": "^4.0.0",
-    "next-transpile-modules": "^6.3.0",
-    "next-compose-plugins": "^2.2.1"
+    "next": "^10.0.8",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^6.3.0"
   }
 }
