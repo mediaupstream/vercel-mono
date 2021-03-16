@@ -1,7 +1,7 @@
 import { Button, Box } from 'shared'
 import fetch from 'node-fetch'
 
-const API_URL = process.env.apiUrl || 'http://localhost:3001/api'
+const API_URL = process.env.apiUrl + '/api'
 
 console.log('API_URL:', API_URL)
 

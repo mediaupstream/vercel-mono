@@ -1,16 +1,24 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
+    "dev:api": "lerna run --scope api dev",
+    "dev:shared": "lerna run --scope shared dev",
+    "dev:web": "lerna run --scope web dev",
     "dev": "lerna run dev --parallel",
+
+    "start:api": "lerna run --scope api start",
+    "start:shared": "lerna run --scope shared start",
+    "start:web": "lerna run --scope web start",
+    "start": "lerna run start --parallel",
+
+    "build:api": "lerna run --scope api build",
+    "build:shared": "lerna run --scope shared build",
+    "build:web": "lerna run --scope web build",
     "build": "lerna run build"
   },
   "devDependencies": {
-    "lerna": "^4.0.0",
-    "next-transpile-modules": "^6.3.0",
-    "next-compose-plugins": "^2.2.1"
+    "lerna": "^4.0.0"
   }
 }
