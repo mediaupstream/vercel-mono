@@ -5,5 +5,5 @@ export const hyphenize = (str) =>
   str
     .replace(/([A-Z])/g, ' $1')
     .split(' ')
-    .join('-')
+    .join('_')
     .toLowerCase()

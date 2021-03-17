@@ -15,8 +15,6 @@ const withEnv = n => Object.entries(n).map(([k,v]) => `-b ${k}="${v}" -e ${k}="$
 
 const log = (...msg) => DEBUG ? console.log(...msg) : null
 
-// -- DEPLOY STUFF
-
 async function deployApi() {
   log('[ Deploying API ]')
   const { stdout: res } = await exec(cmd(projects.api))
