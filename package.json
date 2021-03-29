@@ -17,7 +17,7 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
-    "version": "lerna version --exact --conventional-commits --amend --yes"
+    "vv": "lerna version --exact --conventional-commits --yes"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
