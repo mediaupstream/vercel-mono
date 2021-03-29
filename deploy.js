@@ -1,6 +1,8 @@
 const { promisify } = require('util')
 const exec = promisify(require('child_process').exec)
 
+const isProd = process.env.PROD_RELEASE == 1
+
 const DEBUG = false
 const ORG_ID = 's0u8XySVq3EH7yrs1IRNb3Hj'
 const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
@@ -10,7 +12,7 @@ const projects = {
   web: 'prj_1ov6CWEJ2FOEAdMmJAvrk4QQjHWx',
 }
 
-const cmd = id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${id} npx vercel --token ${TOKEN} -c -C`
+const cmd = id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${id} npx vercel --token ${TOKEN} -c -C ${isProd ? '--prod' : ''}`
 const withEnv = n => Object.entries(n).map(([k,v]) => `-b ${k}="${v}" -e ${k}="${v}"`).join(' ')
 
 const log = (...msg) => DEBUG ? console.log(...msg) : null

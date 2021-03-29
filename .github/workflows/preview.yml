@@ -1,16 +1,24 @@
-name: preview deploy
-on: [pull_request]
+name: Preview deployment
+on:
+  pull_request:
+    branches-ignore:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      - run: yarn install
+
       - name: Deploy
         id: deploy-result
         run: echo "::set-output name=msg::$(node deploy)"
+
       - name: Comment on PR
         uses: actions/github-script@v3
         with:
