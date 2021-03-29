@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "apiUrl=http://localhost:3001 next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "apiUrl=http://localhost:3001 next build",
+    "start": "apiUrl=http://localhost:3001 next start"
   },
   "dependencies": {
     "next": "10.0.8",

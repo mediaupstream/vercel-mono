@@ -18,3 +18,5 @@ export const Button = styled.a`
 Button.defaultProps = {
   href: '#'
 }
+
+export default Button
