@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/mediaupstream/vercel-mono/compare/v1.2.0...v1.3.0) (2021-03-29)
+
+
+### Features
+
+* green box default ([90de521](https://github.com/mediaupstream/vercel-mono/commit/90de5211b9b2d8b41e54394bf6480a9f46ed1a4f))
+
+
+
+
+
 # 1.2.0 (2021-03-29)
 
 
