@@ -16,7 +16,9 @@
     "build:api": "lerna run --scope api build",
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
-    "build": "lerna run build"
+    "build": "lerna run build",
+
+    "version": "lerna version --exact"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
