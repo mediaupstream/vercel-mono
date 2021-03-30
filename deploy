@@ -7,6 +7,12 @@ if ! [[ "$1" =~ ^(web|api)$ ]]; then
   exit 1
 fi
 
+echo "tags: $GIT_COMMIT_TAGS"
+echo "ref: $GIT_COMMIT_REF"
+echo "sha: $GIT_COMMIT_SHA"
+
+exit 1
+
 deploy () {
   # VERCEL_TOKEN
   token="VpcyGrjb0uOvrXsxGiyhxWIe"
@@ -16,6 +22,7 @@ deploy () {
   projectId=""
   # Initial vercel cli args
   args=("-t ${token} -c -C")
+
 
   # deploying api?
   if [ $1 = "api" ]; then
