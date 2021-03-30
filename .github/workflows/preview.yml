@@ -18,6 +18,10 @@ jobs:
       - name: Deploying API preview
         id: api_deploy
         run: echo "::set-output name=url::$(./deploy api)"
+        env:
+          COMMIT_AUTHOR: ${{ github.event.pusher.name }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+          GITHUB_COMMIT_MSG: ${{ github.event.head_commit.message }}
 
       - name: Status (success)
         if: success()

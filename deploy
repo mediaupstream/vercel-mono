@@ -21,11 +21,26 @@ deploy () {
   # Initial vercel cli args
   args=(
     "-t ${token} -c -C"
-    "-b GIT_COMMIT_SHA=\"${GIT_COMMIT_SHA}\""
+    "-m githubCommitSha=\"${GIT_COMMIT_SHA}\""
     "-b GIT_COMMIT_REF=\"${GIT_COMMIT_REF}\""
     "-e GIT_COMMIT_SHA=\"${GIT_COMMIT_SHA}\""
     "-e GIT_COMMIT_REF=\"${GIT_COMMIT_REF}\""
+    "-m githubDeployment=1"
+    "-m githubOrg=\"${orgId}\""
+    "-m githubCommitOrg=\"${orgId}\""
+    "-m githubRepo=\"${GITHUB_REPO}\""
+    "-m githubCommitRepo=\"${GITHUB_REPO}\""
+    "-m githubCommitMessage=\"${GITHUB_COMMIT_MSG}\""
+    "-m githubCommitRef=${GIT_COMMIT_REF}"
+
   )
+
+  if [ -n "$COMMIT_AUTHOR" ]; then
+    args+=(
+      "-m githubCommitAuthorName=\"${COMMIT_AUTHOR}\""
+      "-m githubCommitAuthorLogin=\"${COMMIT_AUTHOR}\""
+    )
+  fi
 
   # deploying api?
   if [ $1 = "api" ]; then
@@ -55,8 +70,6 @@ deploy () {
   echo ${args[@]} >&2
 
   deployment=$( \
-    GIT_COMMIT_REF="${GIT_COMMIT_REF}" \
-    GIT_COMMIT_SHA="${GIT_COMMIT_SHA}" \
     VERCEL_ORG_ID=${orgId} \
     VERCEL_PROJECT_ID=${projectId} \
     npx vercel ${args[@]})
