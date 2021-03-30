@@ -1,11 +1,5 @@
 name: Preview deployment
-on:
-  push:
-  pull_request:
-    types: [opened]
-    branches:
-      - '**'
-      - '!main'
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
