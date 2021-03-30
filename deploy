@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! [[ "$1" =~ ^(web|api)$ ]]; then
+  echo "Please provide a valid package name. valid options: api, web"
+  exit 1
+fi
+
+deploy () {
+  # VERCEL_TOKEN
+  token="VpcyGrjb0uOvrXsxGiyhxWIe"
+  # VEREL_ORG_ID
+  orgId="s0u8XySVq3EH7yrs1IRNb3Hj"
+  # VERCEL_PROJECT_ID
+  projectId=""
+  # Initial vercel cli args
+  args=("-t ${token} -c -C")
+
+  # deploying api?
+  if [ $1 = "api" ]; then
+    projectId="prj_LQmlubkLgUq9jNtGmAiS6Qp0Llyv"
+  fi
+
+# deploying web?
+  if [ $1 = "web" ]; then
+    projectId="prj_1ov6CWEJ2FOEAdMmJAvrk4QQjHWx"
+    # set API_URL as build/env vars for the vercel cli
+    if [ -n "$API_URL" ]; then
+      args+=( "-b API_URL=${API_URL} -e API_URL=${API_URL}" )
+    else
+      echo "Please provide API_URL"
+      return 1
+    fi
+  fi
+
+  # production deploy?
+  if [ -n "$PROD_RELEASE" ]; then
+    args+=("--prod")
+  fi
+
+  deployment=$(VERCEL_ORG_ID=${orgId} VERCEL_PROJECT_ID=${projectId} npx vercel ${args[@]})
+
+  # return the deployment URL
+  echo "$deployment"
+}
+
+echo $(deploy $1)

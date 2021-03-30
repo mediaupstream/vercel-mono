@@ -17,7 +17,10 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
-    "release:prod": "lerna version --exact --conventional-commits --yes"
+    "release:prod": "lerna version --exact --conventional-commits --yes",
+
+    "deploy:api": "./deploy api",
+    "deploy:web": "./deploy web"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

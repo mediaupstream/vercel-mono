@@ -6,16 +6,73 @@ env:
 name: Preview deployment
 on: [pull_request]
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
+      #
+      # DEPLOY API
+      #
+      - uses: chrnorm/deployment-action@releases/v1
+        name: API Deployment
+        id: api-deployment
         with:
-          node-version: '14'
+          token: "${{ github.token }}"
+          environment: qa
 
-      - run: yarn install
+      - name: Deploying API
+        id: api_deploy
+        run: echo "::set-output name=url::$(./deploy api)"
 
-      - name: Deploy Preview Apps
-        run: node deploy
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: "${{ steps.api_deploy.outputs.url }}"
+          state: "success"
+          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: "${{ steps.api_deploy.outputs.url }}"
+          state: "failure"
+          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+
+      #
+      # DEPLOY WEB
+      #
+      - uses: chrnorm/deployment-action@releases/v1
+        name: WEB Deployment
+        id: web-deployment
+        with:
+          token: "${{ github.token }}"
+          environment: qa
+
+      - name: Deploying WEB
+        id: web_deploy
+        run: echo "::set-output name=url::$(./deploy api)"
+        env:
+          API_URL: "${{ steps.api_deploy.outputs.url }}"
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: "${{ steps.web_deploy.outputs.url }}"
+          state: "success"
+          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: "${{ steps.web_deploy.outputs.url }}"
+          state: "failure"
+          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
