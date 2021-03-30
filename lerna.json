@@ -2,6 +2,10 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
+    "version": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish %s"
+    },
     "publish": {
       "conventionalCommits": true,
       "yes": true
@@ -10,5 +14,5 @@
   "packages": [
     "packages/*"
   ],
-  "version": "1.0.0"
+  "version": "1.3.0"
 }

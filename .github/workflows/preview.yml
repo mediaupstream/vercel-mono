@@ -1,0 +1,71 @@
+name: Preview deployment
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      #
+      # DEPLOY API
+      #
+      - uses: chrnorm/deployment-action@releases/v1
+        id: api-deployment
+        with:
+          token: "${{ github.token }}"
+          environment: Preview - API
+
+      - name: Deploying API preview
+        id: api_deploy
+        run: echo "::set-output name=url::$(./deploy api)"
+
+      - name: Status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: ${{ steps.api_deploy.outputs.url }}
+          environment_url: ${{ steps.api_deploy.outputs.url }}
+          state: "success"
+          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+
+      - name: Status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          state: "failure"
+          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+
+      #
+      # DEPLOY WEB
+      #
+      - uses: chrnorm/deployment-action@releases/v1
+        id: web-deployment
+        with:
+          token: "${{ github.token }}"
+          environment: Preview - Web
+
+      - name: Deploying web preview
+        id: web_deploy
+        run: echo "::set-output name=url::$(./deploy web)"
+        env:
+          API_URL: "${{ steps.api_deploy.outputs.url }}"
+
+      - name: Status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: ${{ steps.web_deploy.outputs.url }}
+          environment_url: ${{ steps.web_deploy.outputs.url }}
+          state: "success"
+          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
+
+      - name: Status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          state: "failure"
+          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
