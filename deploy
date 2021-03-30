@@ -7,7 +7,7 @@ if ! [[ "$1" =~ ^(web|api)$ ]]; then
   exit 1
 fi
 
-GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(git rev-parse HEAD)}
+GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
 GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(git symbolic-ref HEAD)}
 GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(git tag --points-at HEAD | tr '\\r\\n' ' ')}
 
