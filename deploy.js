@@ -1,5 +1,5 @@
 const { promisify } = require('util')
-import { Octokit } from '@octokit/rest'
+const { Octokit } = require('@octokit/rest')
 const exec = promisify(require('child_process').exec)
 
 const DEBUG = false
