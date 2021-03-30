@@ -3,7 +3,7 @@
 set -e
 
 if ! [[ "$1" =~ ^(web|api)$ ]]; then
-  echo "Please provide a valid package name. valid options: api, web"
+  echo "Please provide a valid package name. valid options: api, web" >&2
   exit 1
 fi
 
@@ -44,7 +44,7 @@ deploy () {
         "-e API_URL=${API_URL}"
       )
     else
-      echo "Please provide API_URL"
+      echo "Please provide API_URL" >&2
       return 1
     fi
   fi
@@ -54,7 +54,7 @@ deploy () {
     args+=("--prod")
   fi
 
-  echo ${args[@]}
+  echo ${args[@]} >&2
 
   deployment=$( \
     GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS} \
