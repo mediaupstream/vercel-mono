@@ -1,5 +1,7 @@
-export * from './components/Box'
-export * from './components/Button'
+import dynamic from 'next/dynamic'
+
+export const Button = dynamic(() => import('./components/Button'))
+export const Box = dynamic(() => import('./components/Box'))
 
 export const hyphenize = (str) =>
   str
