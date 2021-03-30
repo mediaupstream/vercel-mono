@@ -2,11 +2,14 @@ const { promisify } = require('util')
 const { Octokit } = require('@octokit/rest')
 const exec = promisify(require('child_process').exec)
 
-const DEBUG = false
+const DEBUG = true
 const ORG_ID = 's0u8XySVq3EH7yrs1IRNb3Hj'
 const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 const isProd = process.env.PROD_RELEASE == 1
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+
+console.log("REF", process.env.GITHUB_REF)
+console.log(process.env)
 
 if (!GITHUB_TOKEN) {
   console.error('Missing environment variable GITHUB_TOKEN')
@@ -35,7 +38,7 @@ async function createDeployment(description, options = {}) {
       owner: process.env.GH_OWNER_NAME || '',
       repo: process.env.GH_REPO_NAME || '',
       environment: process.env.DEPLOYMENT_ENV || (isProd ? 'production' : 'preview'),
-      ref: process.env.GITHUB_SHA,
+      ref: process.env.GITHUB_REF,
       transient_environment: !isProd,
       production_environment: isProd,
       auto_merge: true
@@ -49,9 +52,10 @@ async function createDeployment(description, options = {}) {
     if (!data.id && data.message) {
       return createDeployment(description, options)
     }
-    console.log(data)
+    log(data)
     return data.id
   } catch (err) {
+    log(err)
     throw new Error('Cannot create deployment:', err)
   }
 }
@@ -67,8 +71,10 @@ async function updateDeployment(deployment_id, state = 'in_progress', environmen
       state,
       environment_url
     }
-    await octokit.repos.createDeploymentStatus(options)
+    const { data } = await octokit.repos.createDeploymentStatus(options)
+    log(data)
   } catch (err) {
+    log(err)
     throw new Error('Cannot update deployment:', err)
   }
 }
@@ -93,6 +99,7 @@ function serviceDeploy(service, fn) {
 
       return url
     } catch (err) {
+      log(err)
       await updateDeployment(deploymentId, 'error')
       throw err
     }
@@ -115,7 +122,7 @@ async function main () {
     const apiUrl = await deployApi()
     const webUrl = await deployWeb(apiUrl)
   } catch (err) {
-    console.log('Deployment failed', err)
+    log('Deployment failed', err)
     process.exit(1)
   }
 }
