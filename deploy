@@ -11,10 +11,6 @@ GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
 GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(git symbolic-ref HEAD)}
 GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(git tag --points-at HEAD | tr '\\r\\n' ' ')}
 
-echo "owner: $OWNER_NAME"
-echo "repo: $REPO_NAME"
-exit 1
-
 deploy () {
   # VERCEL_TOKEN
   token="VpcyGrjb0uOvrXsxGiyhxWIe"
@@ -30,13 +26,14 @@ deploy () {
     "-e GIT_COMMIT_SHA=\"${GIT_COMMIT_SHA}\""
     "-e GIT_COMMIT_REF=\"${GIT_COMMIT_REF}\""
     "-m githubDeployment=1"
-    "-m githubOrg=\"${orgId}\""
-    "-m githubCommitOrg=\"${orgId}\""
+    "-m githubOrg=\"${GITHUB_ORG_NAME}\""
+    "-m githubCommitOrg=\"${GITHUB_ORG_NAME}\""
     "-m githubRepo=\"${GITHUB_REPO}\""
     "-m githubCommitRepo=\"${GITHUB_REPO}\""
-    # "-m githubCommitMessage=\"\""
-    "-m githubCommitRef=${GIT_COMMIT_REF}"
+    "-m githubCommitRef=\"${GIT_COMMIT_REF}\""
   )
+
+  # "-m githubCommitMessage=\"\""
 
   if [ -n "$COMMIT_AUTHOR" ]; then
     args+=(
