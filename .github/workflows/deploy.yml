@@ -1,6 +1,7 @@
 env:
   GH_OWNER_NAME: ${{ github.event.repository.repo}}
   GH_REPO_NAME: ${{ github.event.repository.owner.login }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 name: Production deployment
 on:

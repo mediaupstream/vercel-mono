@@ -8,6 +8,8 @@ const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 const isProd = process.env.PROD_RELEASE == 1
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
+console.log(process.env)
+
 if (!GITHUB_TOKEN) {
   console.error('Missing environment variable GITHUB_TOKEN')
   process.exit(1)
