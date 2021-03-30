@@ -1,3 +1,7 @@
+env:
+  GH_OWNER_NAME: ${{ github.event.repository.repo}}
+  GH_REPO_NAME: ${{ github.event.repository.owner.login }}
+
 name: Production deployment
 on:
   push:
