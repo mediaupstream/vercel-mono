@@ -1,8 +1,3 @@
-env:
-  GH_REPO_NAME: ${{ github.event.repository.name }}
-  GH_OWNER_NAME: ${{ github.event.repository.owner.login }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 name: Preview deployment
 on: [pull_request]
 jobs:
@@ -15,30 +10,30 @@ jobs:
       # DEPLOY API
       #
       - uses: chrnorm/deployment-action@releases/v1
-        name: API Deployment
         id: api-deployment
         with:
-          token: "${{ github.token }}"
+          ref: "${{ github.ref }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           environment: qa
 
-      - name: Deploying API
+      - name: Deploying API preview
         id: api_deploy
         run: echo "::set-output name=url::$(./deploy api)"
 
-      - name: Update deployment status (success)
+      - name: Status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           target_url: "${{ steps.api_deploy.outputs.url }}"
           state: "success"
           deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
 
-      - name: Update deployment status (failure)
+      - name: Status (failure)
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           target_url: "${{ steps.api_deploy.outputs.url }}"
           state: "failure"
           deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
@@ -47,32 +42,32 @@ jobs:
       # DEPLOY WEB
       #
       - uses: chrnorm/deployment-action@releases/v1
-        name: WEB Deployment
         id: web-deployment
         with:
-          token: "${{ github.token }}"
+          ref: "${{ github.ref }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           environment: qa
 
-      - name: Deploying WEB
+      - name: Deploying web preview
         id: web_deploy
-        run: echo "::set-output name=url::$(./deploy api)"
+        run: echo "::set-output name=url::$(./deploy web)"
         env:
           API_URL: "${{ steps.api_deploy.outputs.url }}"
 
-      - name: Update deployment status (success)
+      - name: Status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           target_url: "${{ steps.web_deploy.outputs.url }}"
           state: "success"
           deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
 
-      - name: Update deployment status (failure)
+      - name: Status (failure)
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ github.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           target_url: "${{ steps.web_deploy.outputs.url }}"
           state: "failure"
           deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
