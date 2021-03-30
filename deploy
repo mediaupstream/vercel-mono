@@ -22,7 +22,7 @@ deploy () {
     projectId="prj_LQmlubkLgUq9jNtGmAiS6Qp0Llyv"
   fi
 
-# deploying web?
+  # deploying web?
   if [ $1 = "web" ]; then
     projectId="prj_1ov6CWEJ2FOEAdMmJAvrk4QQjHWx"
     # set API_URL as build/env vars for the vercel cli
