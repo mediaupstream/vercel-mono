@@ -1,5 +1,5 @@
 name: Preview deployment
-on: [pull_request]
+on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,9 +12,8 @@ jobs:
       - uses: chrnorm/deployment-action@releases/v1
         id: api-deployment
         with:
-          ref: "${{ github.ref }}"
           token: "${{ secrets.GITHUB_TOKEN }}"
-          environment: qa
+          environment: Preview - API
 
       - name: Deploying API preview
         id: api_deploy
@@ -44,9 +43,8 @@ jobs:
       - uses: chrnorm/deployment-action@releases/v1
         id: web-deployment
         with:
-          ref: "${{ github.ref }}"
           token: "${{ secrets.GITHUB_TOKEN }}"
-          environment: qa
+          environment: Preview - Web
 
       - name: Deploying web preview
         id: web_deploy
