@@ -11,12 +11,6 @@ GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(git rev-parse HEAD)}
 GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(git symbolic-ref HEAD)}
 GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(git tag --points-at HEAD | tr '\\r\\n' ' ')}
 
-echo "tags: $GIT_COMMIT_TAGS"
-echo "ref: $GIT_COMMIT_REF"
-echo "sha: $GIT_COMMIT_SHA"
-
-exit 1
-
 deploy () {
   # VERCEL_TOKEN
   token="VpcyGrjb0uOvrXsxGiyhxWIe"
@@ -26,7 +20,8 @@ deploy () {
   projectId=""
   # Initial vercel cli args
   args=("-t ${token} -c -C")
-
+  # pass git sha/ref/tags to vercel build-env
+  args+=( "-b GIT_COMMIT_SHA=${GIT_COMMIT_SHA} -b GIT_COMMIT_REF=${GIT_COMMIT_REF} -b GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS}" )
 
   # deploying api?
   if [ $1 = "api" ]; then
