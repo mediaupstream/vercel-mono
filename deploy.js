@@ -8,8 +8,6 @@ const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 const isProd = process.env.PROD_RELEASE == 1
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
-console.log(process.env)
-
 if (!GITHUB_TOKEN) {
   console.error('Missing environment variable GITHUB_TOKEN')
   process.exit(1)
@@ -106,13 +104,13 @@ const deployApi = serviceDeploy('API', async () => {
   return res.toString().trim()
 })
 
-const deployWeb = serviceDeploy('WEB', async (apiUrl) => {
-  const { stdout: res } = await exec(`${cmd(projects.web)} ${withEnv(env)}`)
+const deployWeb = serviceDeploy('WEB', async (API_URL) => {
+  const { stdout: res } = await exec(`${cmd(projects.web)} ${withEnv({ API_URL })}`)
   return res.toString().trim()
 })
 
 
-(async function () {
+async function main () {
   try {
     const apiUrl = await deployApi()
     const webUrl = await deployWeb(apiUrl)
@@ -120,4 +118,6 @@ const deployWeb = serviceDeploy('WEB', async (apiUrl) => {
     console.log('Deployment failed', err)
     process.exit(1)
   }
-})()
+}
+
+main()
