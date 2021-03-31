@@ -7,6 +7,11 @@ if ! [[ "$1" =~ ^(web|api)$ ]]; then
   exit 1
 fi
 
+echo $GIT_COMMIT_MSG
+echo $GITHUB_ORG_NAME
+exit 1
+
+
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
 
