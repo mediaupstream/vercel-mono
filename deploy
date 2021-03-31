@@ -7,12 +7,8 @@ if ! [[ "$1" =~ ^(web|api)$ ]]; then
   exit 1
 fi
 
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
-GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(git symbolic-ref HEAD)}
-GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(git tag --points-at HEAD | tr '\\r\\n' ' ')}
-
-echo $GITHUB_CONTEXT
-exit 1
 
 deploy () {
   # VERCEL_TOKEN
@@ -24,16 +20,28 @@ deploy () {
   # Initial vercel cli args
   args=(
     "-t ${token} -c -C"
-    "-m githubCommitSha=\"${GIT_COMMIT_SHA}\""
+    "-m githubCommitSha=${GIT_COMMIT_SHA}"
     "-m githubDeployment=1"
-    "-m githubOrg=\"${GITHUB_ORG_NAME}\""
-    "-m githubCommitOrg=\"${GITHUB_ORG_NAME}\""
-    "-m githubRepo=\"${GITHUB_REPO}\""
-    "-m githubCommitRepo=\"${GITHUB_REPO}\""
-    "-m githubCommitRef=\"${GIT_COMMIT_REF}\""
+    "-m githubOrg=${GITHUB_ORG_NAME}"
+    "-m githubCommitOrg=${GITHUB_ORG_NAME}"
+    "-m githubRepo=${GITHUB_REPO}"
+    "-m githubCommitRepo=${GITHUB_REPO}"
+    "-m githubCommitRef=${GIT_BRANCH}"
+    "-m githubCommitMessage=${GIT_COMMIT_MSG}"
+    "-m githubCommitAuthorLogin: ${COMMIT_AUTHOR}"
+    "-m githubCommitAuthorName: ${COMMIT_AUTHOR_NAME}"
   )
 
-  # "-m githubCommitMessage=\"\""
+  # githubCommitAuthorLogin: "dependabot[bot]"
+  # githubCommitAuthorName: "dependabot[bot]"
+  # githubCommitMessage: "chore(deps): bump next from 8.1.0 to 9.3.3↵↵Bumps [next](https://github.com/zeit/next.js) from 8.1.0 to 9.3.3.↵- [Release notes](https://github.com/zeit/next.js/releases)↵- [Commits](https://github.com/zeit/next.js/compare/v8.1.0...v9.3.3)↵↵Signed-off-by: dependabot[bot] <support@github.com>"
+  # githubCommitOrg: "mediaupstream"
+  # githubCommitRef: "dependabot/npm_and_yarn/next-9.3.3"
+  # githubCommitRepo: "dead-drop-io"
+  # githubCommitSha: "e1814bed459297394a4c78a6fbf888f027dfbab6"
+  # githubDeployment: "1"
+  # githubOrg: "mediaupstream"
+  # githubRepo: "dead-drop-io"
 
   if [ -n "$COMMIT_AUTHOR" ]; then
     args+=(
