@@ -7,9 +7,7 @@ env:
   GITHUB_ORG_NAME: ${{ github.repository_owner }}
 
 name: Preview deployment
-on:
-  pull_request:
-
+on: [pull_request]
 jobs:
   preview:
     runs-on: ubuntu-latest
