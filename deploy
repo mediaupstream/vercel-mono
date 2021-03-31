@@ -28,10 +28,8 @@ deploy () {
     "-m githubCommitRepo=${GITHUB_REPO}"
     "-m githubCommitRef=${GIT_BRANCH}"
     "-m githubCommitAuthorLogin=${COMMIT_AUTHOR}"
-    "-m githubCommitAuthorName='${COMMIT_AUTHOR_NAME}'"
   )
 
-  # "-m githubCommitMessage=$(printf %q "$GIT_COMMIT_MSG")"
   # githubCommitAuthorLogin: "dependabot[bot]"
   # githubCommitAuthorName: "dependabot[bot]"
   # githubCommitMessage: "chore(deps): bump next from 8.1.0 to 9.3.3↵↵Bumps [next](https://github.com/zeit/next.js) from 8.1.0 to 9.3.3.↵- [Release notes](https://github.com/zeit/next.js/releases)↵- [Commits](https://github.com/zeit/next.js/compare/v8.1.0...v9.3.3)↵↵Signed-off-by: dependabot[bot] <support@github.com>"
@@ -70,13 +68,11 @@ deploy () {
 
   echo ${args[@]} >&2
 
-  deployment=$(\
-    VERCEL_ORG_ID=${orgId} \
-    VERCEL_PROJECT_ID=${projectId} \
-    npx vercel ${args[@]})
-
-  # return the deployment URL
-  echo "$deployment"
+  VERCEL_ORG_ID=${orgId} \
+  VERCEL_PROJECT_ID=${projectId} \
+  npx vercel ${args[@]} \
+  -m githubCommitAuthorLogin="${COMMIT_AUTHOR}" \
+  -m githubCommitAuthorName="${COMMIT_AUTHOR_NAME}"
 }
 
 echo $(deploy $1)
