@@ -23,6 +23,11 @@ jobs:
         run: echo "::set-output name=url::$(./deploy api)"
         env:
           PROD_RELEASE: "prod"
+          COMMIT_AUTHOR: ${{ github.event.head_commit.author.username }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          GIT_COMMIT_MSG: ${{ github.event.head_commit.message }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+          GITHUB_ORG_NAME: ${{ github.repository_owner }}
 
       - name: Status (success)
         if: success()
@@ -57,6 +62,11 @@ jobs:
         env:
           API_URL: "${{ steps.api_deploy.outputs.url }}"
           PROD_RELEASE: "prod"
+          COMMIT_AUTHOR: ${{ github.event.head_commit.author.username }}
+          COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          GIT_COMMIT_MSG: ${{ github.event.head_commit.message }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+          GITHUB_ORG_NAME: ${{ github.repository_owner }}
 
       - name: Status (success)
         if: success()

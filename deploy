@@ -3,9 +3,12 @@
 set -e
 
 if ! [[ "$1" =~ ^(web|api)$ ]]; then
-  echo "Please provide a valid package name. valid options: api, web"
+  echo "Please provide a valid package name. valid options: api, web" >&2
   exit 1
 fi
+
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
 
 deploy () {
   # VERCEL_TOKEN
@@ -15,7 +18,17 @@ deploy () {
   # VERCEL_PROJECT_ID
   projectId=""
   # Initial vercel cli args
-  args=("-t ${token} -c -C")
+  args=(
+    "--token ${token} -c -C"
+    "-m githubCommitSha=${GIT_COMMIT_SHA}"
+    "-m githubDeployment=1"
+    "-m githubOrg=${GITHUB_ORG_NAME}"
+    "-m githubCommitOrg=${GITHUB_ORG_NAME}"
+    "-m githubRepo=${GITHUB_REPO}"
+    "-m githubCommitRepo=${GITHUB_REPO}"
+    "-m githubCommitRef=${GIT_BRANCH}"
+    "-m githubCommitAuthorLogin=${COMMIT_AUTHOR}"
+  )
 
   # deploying api?
   if [ $1 = "api" ]; then
@@ -27,9 +40,12 @@ deploy () {
     projectId="prj_1ov6CWEJ2FOEAdMmJAvrk4QQjHWx"
     # set API_URL as build/env vars for the vercel cli
     if [ -n "$API_URL" ]; then
-      args+=( "-b API_URL=${API_URL} -e API_URL=${API_URL}" )
+      args+=(
+        "-b API_URL=${API_URL}"
+        "-e API_URL=${API_URL}"
+      )
     else
-      echo "Please provide API_URL"
+      echo "Please provide API_URL" >&2
       return 1
     fi
   fi
@@ -39,10 +55,13 @@ deploy () {
     args+=("--prod")
   fi
 
-  deployment=$(VERCEL_ORG_ID=${orgId} VERCEL_PROJECT_ID=${projectId} npx vercel ${args[@]})
+  echo ${args[@]} >&2
 
-  # return the deployment URL
-  echo "$deployment"
+  VERCEL_ORG_ID=${orgId} \
+  VERCEL_PROJECT_ID=${projectId} \
+  npx vercel ${args[@]} \
+  -m githubCommitMessage="${GIT_COMMIT_MSG}" \
+  -m githubCommitAuthorName="${COMMIT_AUTHOR_NAME}"
 }
 
 echo $(deploy $1)
