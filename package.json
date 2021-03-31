@@ -17,12 +17,12 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
-    "release:prod": "lerna version --exact --conventional-commits --yes",
-
+    "release:prod": "git-branch-is main && lerna version --exact --conventional-commits",
     "deploy:api": "./deploy api",
     "deploy:web": "./deploy web"
   },
   "devDependencies": {
+    "git-branch-is": "^4.0.0",
     "lerna": "^4.0.0"
   },
   "version": "1.0.0",
