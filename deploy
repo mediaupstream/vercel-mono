@@ -71,7 +71,7 @@ deploy () {
   VERCEL_ORG_ID=${orgId} \
   VERCEL_PROJECT_ID=${projectId} \
   npx vercel ${args[@]} \
-  -m githubCommitAuthorLogin="${COMMIT_AUTHOR}" \
+  -m githubCommitMessage="${GIT_COMMIT_MSG}" \
   -m githubCommitAuthorName="${COMMIT_AUTHOR_NAME}"
 }
 
