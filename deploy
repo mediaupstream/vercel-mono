@@ -7,13 +7,8 @@ if ! [[ "$1" =~ ^(web|api)$ ]]; then
   exit 1
 fi
 
-echo $GIT_COMMIT_MSG
-echo $GITHUB_ORG_NAME
-exit 1
-
-
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-GIT_COMMIT_SHA=${GITHUB_SHA:-$(git rev-parse HEAD)}
+GIT_COMMIT_SHA=${GIT_SHA:-$(git rev-parse HEAD)}
 
 deploy () {
   # VERCEL_TOKEN
@@ -61,6 +56,7 @@ deploy () {
   fi
 
   echo ${args[@]} >&2
+  return 1
 
   VERCEL_ORG_ID=${orgId} \
   VERCEL_PROJECT_ID=${projectId} \
@@ -68,5 +64,7 @@ deploy () {
   -m githubCommitMessage="${GIT_COMMIT_MSG}" \
   -m githubCommitAuthorName="${COMMIT_AUTHOR_NAME}"
 }
+
+printenv
 
 echo $(deploy $1)
