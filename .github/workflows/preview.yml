@@ -1,6 +1,5 @@
 name: Preview deployment
 on: pull_request
-
 jobs:
   preview:
     env:
