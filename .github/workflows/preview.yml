@@ -7,8 +7,10 @@ jobs:
       COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
       GIT_COMMIT_MSG: ${{ github.event.head_commit.message }}
       GIT_SHA: ${{ github.event.pull_request.head.sha }}
+      GIT_BRANCH: ${{ github.event.pull_request.head.ref }}
       GITHUB_REPO: ${{ github.event.repository.name }}
       GITHUB_ORG_NAME: ${{ github.repository_owner }}
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
