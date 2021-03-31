@@ -1,82 +1,84 @@
 name: Preview deployment
-on: pull_request
+on:
+  push:
+    if: inside_open_pr
 jobs:
   preview:
     env:
       COMMIT_AUTHOR: ${{ github.event.head_commit.author.username }}
       COMMIT_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
       GIT_COMMIT_MSG: ${{ github.event.head_commit.message }}
-      GIT_SHA: ${{ github.event.pull_request.head.sha }}
-      GIT_BRANCH: ${{ github.event.pull_request.head.ref }}
       GITHUB_REPO: ${{ github.event.repository.name }}
       GITHUB_ORG_NAME: ${{ github.repository_owner }}
 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
-      #
-      # DEPLOY API - PREVIEW
-      #
-      - uses: chrnorm/deployment-action@releases/v1
-        id: api-deployment
-        with:
-          token: "${{ github.token }}"
-          environment: Preview - API
+      # DEBUG
+      - name: Echo github obj
+        run: echo ${{ toJson(github) }}
 
-      - name: Deploying API preview
-        id: api_deploy
-        run: echo "::set-output name=url::$(./deploy api)"
+      # #
+      # # DEPLOY API - PREVIEW
+      # #
+      # - uses: chrnorm/deployment-action@releases/v1
+      #   id: api-deployment
+      #   with:
+      #     token: "${{ github.token }}"
+      #     environment: Preview - API
 
-      - name: Status (success)
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          target_url: ${{ steps.api_deploy.outputs.url }}
-          environment_url: ${{ steps.api_deploy.outputs.url }}
-          state: "success"
-          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+      # - name: Deploying API preview
+      #   id: api_deploy
+      #   run: echo "::set-output name=url::$(./deploy api)"
 
-      - name: Status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          state: "failure"
-          deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
+      # - name: Status (success)
+      #   if: success()
+      #   uses: chrnorm/deployment-status@releases/v1
+      #   with:
+      #     token: "${{ github.token }}"
+      #     target_url: ${{ steps.api_deploy.outputs.url }}
+      #     environment_url: ${{ steps.api_deploy.outputs.url }}
+      #     state: "success"
+      #     deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
 
-      #
-      # DEPLOY WEB - PREVIEW
-      #
-      - uses: chrnorm/deployment-action@releases/v1
-        id: web-deployment
-        with:
-          token: "${{ github.token }}"
-          environment: Preview - Web
+      # - name: Status (failure)
+      #   if: failure()
+      #   uses: chrnorm/deployment-status@releases/v1
+      #   with:
+      #     token: "${{ github.token }}"
+      #     state: "failure"
+      #     deployment_id: ${{ steps.api-deployment.outputs.deployment_id }}
 
-      - name: Deploying web preview
-        id: web_deploy
-        run: echo "::set-output name=url::$(./deploy web)"
-        env:
-          API_URL: "${{ steps.api_deploy.outputs.url }}"
+      # #
+      # # DEPLOY WEB - PREVIEW
+      # #
+      # - uses: chrnorm/deployment-action@releases/v1
+      #   id: web-deployment
+      #   with:
+      #     token: "${{ github.token }}"
+      #     environment: Preview - Web
 
-      - name: Status (success)
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          target_url: ${{ steps.web_deploy.outputs.url }}
-          environment_url: ${{ steps.web_deploy.outputs.url }}
-          state: "success"
-          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
+      # - name: Deploying web preview
+      #   id: web_deploy
+      #   run: echo "::set-output name=url::$(./deploy web)"
+      #   env:
+      #     API_URL: "${{ steps.api_deploy.outputs.url }}"
 
-      - name: Status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: "${{ github.token }}"
-          state: "failure"
-          deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
+      # - name: Status (success)
+      #   if: success()
+      #   uses: chrnorm/deployment-status@releases/v1
+      #   with:
+      #     token: "${{ github.token }}"
+      #     target_url: ${{ steps.web_deploy.outputs.url }}
+      #     environment_url: ${{ steps.web_deploy.outputs.url }}
+      #     state: "success"
+      #     deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
+
+      # - name: Status (failure)
+      #   if: failure()
+      #   uses: chrnorm/deployment-status@releases/v1
+      #   with:
+      #     token: "${{ github.token }}"
+      #     state: "failure"
+      #     deployment_id: ${{ steps.web-deployment.outputs.deployment_id }}
