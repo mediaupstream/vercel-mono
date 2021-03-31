@@ -30,17 +30,6 @@ deploy () {
     "-m githubCommitAuthorLogin=${COMMIT_AUTHOR}"
   )
 
-  # githubCommitAuthorLogin: "dependabot[bot]"
-  # githubCommitAuthorName: "dependabot[bot]"
-  # githubCommitMessage: "chore(deps): bump next from 8.1.0 to 9.3.3↵↵Bumps [next](https://github.com/zeit/next.js) from 8.1.0 to 9.3.3.↵- [Release notes](https://github.com/zeit/next.js/releases)↵- [Commits](https://github.com/zeit/next.js/compare/v8.1.0...v9.3.3)↵↵Signed-off-by: dependabot[bot] <support@github.com>"
-  # githubCommitOrg: "mediaupstream"
-  # githubCommitRef: "dependabot/npm_and_yarn/next-9.3.3"
-  # githubCommitRepo: "dead-drop-io"
-  # githubCommitSha: "e1814bed459297394a4c78a6fbf888f027dfbab6"
-  # githubDeployment: "1"
-  # githubOrg: "mediaupstream"
-  # githubRepo: "dead-drop-io"
-
   # deploying api?
   if [ $1 = "api" ]; then
     projectId="prj_LQmlubkLgUq9jNtGmAiS6Qp0Llyv"
