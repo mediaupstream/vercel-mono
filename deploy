@@ -19,7 +19,7 @@ deploy () {
   projectId=""
   # Initial vercel cli args
   args=(
-    "-t ${token} -c -C"
+    "--token ${token} -c -C"
     "-m githubCommitSha=${GIT_COMMIT_SHA}"
     "-m githubDeployment=1"
     "-m githubOrg=${GITHUB_ORG_NAME}"
@@ -73,7 +73,7 @@ deploy () {
   deployment=$( \
     VERCEL_ORG_ID=${orgId} \
     VERCEL_PROJECT_ID=${projectId} \
-    npx vercel ${args[@]@Q})
+    npx vercel ${args[@]})
 
   # return the deployment URL
   echo "$deployment"
