@@ -28,8 +28,8 @@ deploy () {
     "-m githubCommitRepo=${GITHUB_REPO}"
     "-m githubCommitRef=${GIT_BRANCH}"
     "-m githubCommitMessage=${GIT_COMMIT_MSG}"
-    "-m githubCommitAuthorLogin: ${COMMIT_AUTHOR}"
-    "-m githubCommitAuthorName: ${COMMIT_AUTHOR_NAME}"
+    "-m githubCommitAuthorLogin=${COMMIT_AUTHOR}"
+    "-m githubCommitAuthorName=${COMMIT_AUTHOR_NAME}"
   )
 
   # githubCommitAuthorLogin: "dependabot[bot]"
@@ -42,13 +42,6 @@ deploy () {
   # githubDeployment: "1"
   # githubOrg: "mediaupstream"
   # githubRepo: "dead-drop-io"
-
-  if [ -n "$COMMIT_AUTHOR" ]; then
-    args+=(
-      "-m githubCommitAuthorName=\"${COMMIT_AUTHOR}\""
-      "-m githubCommitAuthorLogin=\"${COMMIT_AUTHOR}\""
-    )
-  fi
 
   # deploying api?
   if [ $1 = "api" ]; then
