@@ -33,7 +33,6 @@ const octokit = new Octokit({
   previews: ['ant-man-preview', 'flash-preview'],
 })
 
-
 /**
  * Vercel command to deploy project by `id`
  */
@@ -144,7 +143,10 @@ function serviceDeploy(environment, fn) {
   }
 }
 
-const vercelDeploy = ({ project_id, env, meta: metaOptions }) => {
+/**
+ * Execute the vercel deploy command for the given project_id
+ */
+async function vercelDeploy({ project_id, env, meta: metaOptions }) {
   if (!project_id) {
     throw new Error('Missing `project_id` in vercelDeploy')
   }
@@ -168,6 +170,9 @@ const vercelDeploy = ({ project_id, env, meta: metaOptions }) => {
   return await exec(command)
 }
 
+/**
+ * Create the deployAPI and deployWeb fns
+ */
 const deployApi = serviceDeploy('API', async () => {
   const { stdout: res } = await vercelDeploy({
     project_id: PROJECTS.api
@@ -186,8 +191,14 @@ const deployWeb = serviceDeploy('WEB', async (API_URL) => {
 })
 
 
-
+/**
+ * WELCOME TO THE MAIN FUNCTION, HAVE FUN
+ */
 async function main () {
+  log('- Starting Deployment')
+  log({
+    cwd: process.cwd()
+  })
   try {
     const apiUrl = await deployApi()
     const webUrl = await deployWeb(apiUrl)
