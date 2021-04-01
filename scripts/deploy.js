@@ -66,7 +66,8 @@ async function createDeployment(environment) {
       ref: GITHUB_SHA,
       transient_environment: !isProd,
       production_environment: isProd,
-      auto_merge: false
+      auto_merge: false,
+      required_contexts: []
     }
     log('with options', options)
     const { data } = await octokit.repos.createDeployment(options)
