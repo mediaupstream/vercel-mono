@@ -17,16 +17,12 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
-    "release:prod": "git-branch-is main && lerna version --exact --conventional-commits",
-    "deploy:api": "./deploy api",
-    "deploy:web": "./deploy web"
+    "release:prod": "git-branch-is main && lerna version --exact --conventional-commits"
   },
   "devDependencies": {
+    "@octokit/rest": "^18.5.2",
     "git-branch-is": "^4.0.0",
     "lerna": "^4.0.0"
   },
-  "version": "1.0.0",
-  "dependencies": {
-    "@octokit/rest": "^18.5.2"
-  }
+  "version": "1.0.0"
 }

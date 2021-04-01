@@ -5,10 +5,6 @@
     "version": {
       "conventionalCommits": true,
       "message": "chore(release): publish %s"
-    },
-    "publish": {
-      "conventionalCommits": true,
-      "yes": true
     }
   },
   "packages": [
