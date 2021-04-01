@@ -45,13 +45,13 @@ jobs:
       - run: yarn install
 
       - name: Deploy Preview
-        if: ${{ !env.TAG_RELEASE }}
+        if: ${{ env.TAG_RELEASE == false }}
         run: node ./scripts/deploy
         env:
           GIT_BRANCH: ${{ steps.extract.outputs.branch }}
 
       - name: Deploy Production
-        if: ${{ env.TAG_RELEASE }}
+        if: ${{ env.TAG_RELEASE == true }}
         run: node ./scripts/deploy
         env:
           GIT_BRANCH: main
