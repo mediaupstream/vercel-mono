@@ -26,24 +26,33 @@ jobs:
         id: extract
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
-      - run: |
-          echo ${GITHUB_HEAD_REF}
-          echo ${GITHUB_REF}
-          echo ${GIT_BRANCH}
+      - name: Debug
+        run: |
+          echo "GITHUB_HEAD_REF: ${GITHUB_HEAD_REF}"
+          echo "GITHUB_REF: ${GITHUB_REF}"
+          echo "GIT_BRANCH: ${GIT_BRANCH}"
+          echo "COMMIT_AUTHOR: ${COMMIT_AUTHOR}"
+          echo "COMMIT_AUTHOR_NAME: ${COMMIT_AUTHOR_NAME}"
+          echo "GITHUB_REPO: ${GITHUB_REPO}"
+          echo "GITHUB_ORG_NAME: ${GITHUB_ORG_NAME}"
+          echo "TAG_RELEASE: ${TAG_RELEASE}"
         env:
           GIT_BRANCH: ${{ steps.extract.outputs.branch }}
 
-      # - uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'
-      # - run: yarn install
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: yarn install
 
-      # - name: Deploy Preview
-      #   if: ${{ !env.TAG_RELEASE }}
-      #   run: node ./scripts/deploy
+      - name: Deploy Preview
+        if: ${{ !env.TAG_RELEASE }}
+        run: node ./scripts/deploy
+        env:
+          GIT_BRANCH: ${{ steps.extract.outputs.branch }}
 
-      # - name: Deploy Production
-      #   if: ${{ env.TAG_RELEASE }}
-      #   run: node ./scripts/deploy
-      #   env:
-      #     DEPLOY_ENV: 'production'
+      - name: Deploy Production
+        if: ${{ env.TAG_RELEASE }}
+        run: node ./scripts/deploy
+        env:
+          GIT_BRANCH: main
+          DEPLOY_ENV: 'production'
