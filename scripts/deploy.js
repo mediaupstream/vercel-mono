@@ -21,6 +21,7 @@ const {
   COMMIT_AUTHOR_NAME
 } = process.env
 
+const emoji = '🥝 '
 const isProd = PROD_RELEASE == 1
 
 if (!GITHUB_TOKEN) {
@@ -36,7 +37,7 @@ const octokit = new Octokit({
 /**
  * Vercel command to deploy project by `id`
  */
-const cmd = project_id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${project_id} npx vercel --token ${TOKEN} -c -C ${isProd ? '--prod' : ''}`
+const cmd = project_id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${project_id} npx vercel --token ${TOKEN} -c -C${isProd ? ' --prod' : ''}`
 
 /**
  * Generate env/build flags for the `vercel` cmd
@@ -57,7 +58,7 @@ const log = (...msg) => DEBUG ? console.log(...msg) : null
  * Creates a Github Deployment for the given environment
  */
 async function createDeployment(environment) {
-  log(`- Creating Github Deployment for ${environment}`)
+  log(`${emoji} Creating Github Deployment for ${environment}`)
   try {
     const options = {
       environment,
@@ -94,7 +95,7 @@ async function updateDeployment({
   if (!deployment_id) {
     throw new Error('Missing deployment_id in updateDeployment')
   }
-  log(`- Updating Github Deployment for ${deployment_id}`)
+  log(`${emoji} Updating Github Deployment for ${deployment_id}`)
   try {
     const options = {
       owner: GITHUB_ORG_NAME,
@@ -166,7 +167,7 @@ async function vercelDeploy({ project_id, env, meta: metaOptions }) {
     ...metaOptions
   }
   const command = `${cmd(project_id)} ${withEnv(env)} ${withMeta(meta)}`
-  log('- Running vercel deploy:')
+  log(`${emoji} Running vercel deploy:`)
   log(command)
   return await exec(command)
 }
@@ -196,14 +197,14 @@ const deployWeb = serviceDeploy('WEB', async (API_URL) => {
  * WELCOME TO THE MAIN FUNCTION, HAVE FUN
  */
 async function main () {
-  log('- Starting Deployment')
+  log(`${emoji} Starting Deployment`)
   log({
     cwd: process.cwd()
   })
   try {
     const apiUrl = await deployApi()
     const webUrl = await deployWeb(apiUrl)
-    log('- Successfully deployed', {
+    log(`${emoji} Successfully deployed`, {
       api: apiUrl,
       web: webUrl
     })
