@@ -20,13 +20,9 @@
     "release:prod": "git-branch-is main && lerna version --exact --conventional-commits"
   },
   "devDependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
+    "@octokit/rest": "^18.5.2",
     "git-branch-is": "^4.0.0",
     "lerna": "^4.0.0"
   },
-  "version": "1.0.0",
-  "dependencies": {
-    "@octokit/rest": "^18.5.2"
-  }
+  "version": "1.0.0"
 }
