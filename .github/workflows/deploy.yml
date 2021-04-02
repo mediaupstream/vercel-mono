@@ -41,8 +41,8 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install scripts dependencies
-        run: yarn add @octokit/rest
+      - name: Install deploy script dependencies
+        run: yarn add @octokit/rest -W
 
       - name: Deploy Preview
         if: startsWith(github.ref, 'refs/tags') != true
