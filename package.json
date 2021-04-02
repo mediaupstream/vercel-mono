@@ -17,6 +17,7 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
+    "in": "lerna run install",
     "release": "git-branch-is main && lerna version"
   },
   "devDependencies": {
