@@ -18,7 +18,7 @@
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
     "in": "lerna run install",
-    "release": "git-branch-is main && lerna version -- -- -r .env"
+    "release": "git-branch-is main && lerna version"
   },
   "devDependencies": {
     "@octokit/rest": "^18.5.2",
