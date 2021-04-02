@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 export const Button = styled.a`
+  font-size:1.4rem;
   display:inline-block;
   background: rgb(217,164,247);
-  background: linear-gradient(0deg, rgba(217,164,247,0.5) 0%, rgba(231,232,234,0.5) 100%);
+  background: linear-gradient(0deg, rgba(117,164,247,0.5) 0%, rgba(131,232,234,0.5) 100%);
   color: #333;
   border: none;
   border-radius: 0.5rem;
