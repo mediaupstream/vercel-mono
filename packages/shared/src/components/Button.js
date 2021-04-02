@@ -14,6 +14,7 @@ export const Button = styled.a`
   text-decoration: none;
   transform: translateY(0);
   transition: transform 0.1s linear, opacity 0.1s linear;
+  border: 3px solid cyan;
   &:hover {
     opacity:1;
     transform: translateY(-4px);
