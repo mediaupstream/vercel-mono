@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "shared",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "main": "./src/index.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "api": "1.6.2",
+    "api": "1.6.3",
     "styled-components": "^5.2.1",
     "vercel": "^21.3.3"
   }

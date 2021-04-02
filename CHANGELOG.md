@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.3](https://github.com/mediaupstream/vercel-mono/compare/v1.6.2...v1.6.3) (2021-04-02)
+
+
+### Bug Fixes
+
+* thing ([e017ab8](https://github.com/mediaupstream/vercel-mono/commit/e017ab8c79a2df1d6eddb9536858707965bcf0f3))
+
+
+
+
+
 ## [1.6.2](https://github.com/mediaupstream/vercel-mono/compare/v1.6.1...v1.6.2) (2021-04-02)
 
 
