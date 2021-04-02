@@ -10,6 +10,7 @@ const PROJECTS = {
 const ORG_ID = 's0u8XySVq3EH7yrs1IRNb3Hj'
 const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 const {
+  CI,
   DEPLOY_ENV,
   GIT_BRANCH,
   GITHUB_TOKEN,
@@ -21,8 +22,14 @@ const {
   COMMIT_AUTHOR_NAME
 } = process.env
 
-const emoji = '🥝 '
 const isProd = DEPLOY_ENV === 'production'
+const emoji = isProd ? '🛳 ' : '🥝 '
+
+
+if (!CI) {
+  console.error(`This should only be run inside CI`)
+  process.exit(1)
+}
 
 if (!GITHUB_TOKEN) {
   console.error('Missing environment variable GITHUB_TOKEN')
@@ -37,7 +44,7 @@ const octokit = new Octokit({
 /**
  * Vercel command to deploy project by `id`
  */
-const cmd = project_id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${project_id} npx vercel --token ${TOKEN} -c -C${isProd ? ' --prod' : ''}`
+const cmd = project_id => `VERCEL_ORG_ID=${ORG_ID} VERCEL_PROJECT_ID=${project_id} npx vercel --token ${TOKEN} -c -C ${isProd ? '--prod' : ''}`
 
 /**
  * Generate env/build flags for the `vercel` cmd
