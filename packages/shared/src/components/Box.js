@@ -13,6 +13,8 @@ export const Box = styled.div`
   margin:1rem;
   opacity:0.9;
   transition: opacity 0.3s linear;
+  border: 3px solid cyan;
+
   &:hover {
     opacity:1;
   }
