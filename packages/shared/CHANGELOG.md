@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/mediaupstream/vercel-mono/compare/v1.6.3...v1.7.0) (2021-04-02)
+
+
+### Features
+
+* adds cyan border to Box and Container ([04af54e](https://github.com/mediaupstream/vercel-mono/commit/04af54e0aa2c34a507e2f4bd0bdeca1a44332cbe))
+* adds some color, larger font ([#10](https://github.com/mediaupstream/vercel-mono/issues/10)) ([9c4fcbc](https://github.com/mediaupstream/vercel-mono/commit/9c4fcbcd6508af1c8ec99fc6aad4c8c738b4a49c))
+
+
+
+
+
 ## [1.6.3](https://github.com/mediaupstream/vercel-mono/compare/v1.6.2...v1.6.3) (2021-04-02)
 
 **Note:** Version bump only for package shared
