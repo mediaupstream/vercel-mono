@@ -3,7 +3,10 @@
   "useWorkspaces": true,
   "command": {
     "version": {
+      "allowBranch": "main",
+      "exact": true,
       "conventionalCommits": true,
+      "forcePublish": true,
       "message": "chore(release): publish %s"
     }
   },

@@ -17,7 +17,7 @@
     "build:shared": "lerna run --scope shared build",
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
-    "release": "git-branch-is main && lerna version --exact --conventional-commits"
+    "release": "git-branch-is main && lerna version"
   },
   "devDependencies": {
     "@octokit/rest": "^18.5.2",
