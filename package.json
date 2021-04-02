@@ -18,10 +18,11 @@
     "build:web": "lerna run --scope web build",
     "build": "lerna run build",
     "in": "lerna run install",
-    "release": "git-branch-is main && lerna version"
+    "release": "git-branch-is main && dotenv lerna version"
   },
   "devDependencies": {
     "@octokit/rest": "^18.5.2",
+    "dotenv-cli": "^4.0.0",
     "git-branch-is": "^4.0.0",
     "lerna": "^4.0.0"
   },
