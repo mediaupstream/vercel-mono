@@ -8,3 +8,4 @@ out/
 service-worker.*
 .npmrc
 .DS_Store
+packages/**/dist
