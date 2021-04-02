@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "api",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "main": "api/index",
   "scripts": {
     "start": "next start",
@@ -9,7 +9,7 @@
     "dev": "next dev -p 3001"
   },
   "dependencies": {
-    "shared": "1.5.3"
+    "shared": "1.6.0"
   },
   "devDependencies": {
     "next": "^10.0.8",
