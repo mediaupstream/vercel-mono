@@ -10,7 +10,7 @@ const PROJECTS = {
 const ORG_ID = 's0u8XySVq3EH7yrs1IRNb3Hj'
 const TOKEN = 'VpcyGrjb0uOvrXsxGiyhxWIe'
 const {
-  PROD_RELEASE,
+  DEPLOY_ENV,
   GIT_BRANCH,
   GITHUB_TOKEN,
   GITHUB_SHA,
@@ -22,7 +22,7 @@ const {
 } = process.env
 
 const emoji = '🥝 '
-const isProd = PROD_RELEASE == 1
+const isProd = DEPLOY_ENV === 'production'
 
 if (!GITHUB_TOKEN) {
   console.error('Missing environment variable GITHUB_TOKEN')
@@ -176,6 +176,7 @@ async function vercelDeploy({ project_id, env, meta: metaOptions }) {
  * Create the deployAPI and deployWeb fns
  */
 const deployApi = serviceDeploy('API', async () => {
+  log(`${emoji} Deploying [ API ]`)
   const { stdout: res } = await vercelDeploy({
     project_id: PROJECTS.api
   })
@@ -183,6 +184,7 @@ const deployApi = serviceDeploy('API', async () => {
 })
 
 const deployWeb = serviceDeploy('WEB', async (API_URL) => {
+  log(`${emoji} Deploying [ WEB ]`)
   const { stdout: res } = await vercelDeploy({
     project_id: PROJECTS.web,
     env: {

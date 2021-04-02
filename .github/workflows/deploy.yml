@@ -46,7 +46,6 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          # key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
 
       - run: yarn install
         if: steps.cache-modules.outputs.cache-hit != 'true'
