@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/mediaupstream/vercel-mono/compare/v1.5.0...v1.5.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* bypass contexts ([1556f15](https://github.com/mediaupstream/vercel-mono/commit/1556f151838a01bb865b9685cb24efb324740bcc))
+* catch-all ([1dabcfd](https://github.com/mediaupstream/vercel-mono/commit/1dabcfde25293e75e1495d5e65e4bb5d033791aa))
+* catch-all ([df532ad](https://github.com/mediaupstream/vercel-mono/commit/df532ad50aaf4934940c303522aaf3b611740a1f))
+* catch-all ([9741e73](https://github.com/mediaupstream/vercel-mono/commit/9741e7352d11872a8c02dff1c476e7037728c7cf))
+* debug ([e3c4076](https://github.com/mediaupstream/vercel-mono/commit/e3c4076defc0c8b68a2461175a10d3c8bb9d8a99))
+* extract branch name ([5ca0e4b](https://github.com/mediaupstream/vercel-mono/commit/5ca0e4b827851ae0713e801417369eebc47e4953))
+* fff ([e5009f8](https://github.com/mediaupstream/vercel-mono/commit/e5009f8c1282ba8fe3a5cba358e4d7fdb079c9f1))
+* if check ([e5e568f](https://github.com/mediaupstream/vercel-mono/commit/e5e568fac7e03865c2c3623ffb4d9c77ee0959ec))
+* install first ([58bfe5a](https://github.com/mediaupstream/vercel-mono/commit/58bfe5ae32d21ace025e46c709f987573e3ae27b))
+* n ([46a5e7a](https://github.com/mediaupstream/vercel-mono/commit/46a5e7a79c9a9d460448eb589d88f3aac909ea18))
+* thingss ([22475ca](https://github.com/mediaupstream/vercel-mono/commit/22475ca8a1c77fb66787cfe19b9c1ab463539731))
+* typo ([83a090e](https://github.com/mediaupstream/vercel-mono/commit/83a090ea3e4633c552b941c321945e8047619539))
+* use extracted git branch name ([3b63803](https://github.com/mediaupstream/vercel-mono/commit/3b63803635cf809cceffd782f8f4057f843c5418))
+
+
+### Features
+
+* try again ([91ab5d9](https://github.com/mediaupstream/vercel-mono/commit/91ab5d97aacbf280b9c89a91055b43535c3ee950))
+* use node script instead of shell ([323da6b](https://github.com/mediaupstream/vercel-mono/commit/323da6b3229f53dd6a388f41dfda2fec49f7d832))
+* yarn cache ([f2b8d96](https://github.com/mediaupstream/vercel-mono/commit/f2b8d9692e5389f23017f396c4d28365f79a104d))
+
+
+
+
+
 # 1.5.0 (2021-03-31)
 
 
