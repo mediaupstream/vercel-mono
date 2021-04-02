@@ -3,16 +3,20 @@ import styled from 'styled-components'
 
 export const Button = styled.a`
   display:inline-block;
-  background-color: cyan;
-  color: #fff;
+  background: rgb(217,164,247);
+  background: linear-gradient(0deg, rgba(217,164,247,0.5) 0%, rgba(231,232,234,0.5) 100%);
+  color: #333;
   border: none;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding:1rem;
   margin: 0 1rem;
-  opacity:0.8;
+  opacity:0.9;
   text-decoration: none;
+  transform: translateY(0);
+  transition: transform 0.1s linear, opacity 0.1s linear;
   &:hover {
-    opacity:1
+    opacity:1;
+    transform: translateY(-4px);
   }
 `
 Button.defaultProps = {
