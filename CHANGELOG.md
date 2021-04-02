@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.2](https://github.com/mediaupstream/vercel-mono/compare/v1.5.1...v1.5.2) (2021-04-02)
+
+
+### Bug Fixes
+
+* lerna conf ([bcd8ad2](https://github.com/mediaupstream/vercel-mono/commit/bcd8ad2d1f4e7e4c0044f1cd1d5f0bba620fc642))
+
+
+
+
+
 ## [1.5.1](https://github.com/mediaupstream/vercel-mono/compare/v1.5.0...v1.5.1) (2021-04-02)
 
 
